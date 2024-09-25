@@ -7,44 +7,65 @@ class SalaDeJuego{
     #pregunta;
     #ganador;
     #historialDePreguntas;
+    #gameMediator;
 
-
-    constructor(){
-        this.#jugadores=[];
-        this.#ganador='';
+    constructor(gameMediator){
+        this.#jugadores=new Map();
+        this.#ganador=null;
         this.#historialDePreguntas=[];
         this.#pregunta=null;
         this.#id = crypto.randomBytes(4).toString('hex');
+        this.#gameMediator=gameMediator;
     }
 
-    registrarJugador(Jugador,idSala){
-        if(idSala===this.#id){
-            if(this.#jugadores.length<7){
-                this.#jugadores.push(Jugador);
-            }else{
-                console.log('sala llena');
-            }
+    registrarJugador(jugador) {
+        if (this.#jugadores.size < 7) {  // Verifica si hay menos de 7 jugadores
+            jugador.salaDeJuego = this;
+            this.#jugadores.set(jugador.id, jugador);  // Agrega al jugador al Map
+            console.log(`${jugador.nombre} se ha unido a la sala`);
+        } else {
+            console.log('Sala llena');
         }
     }
 
-    pregunta(){
-        if(!this.#historialDePreguntas.includes(this.#pregunta.id)){
-            this.#historialDePreguntas.push(this.pregunta.id);
+    recibirPregunta(pregunta){
+        if(!this.#historialDePreguntas.includes(pregunta.id)){
+            this.#historialDePreguntas.push(pregunta.id);
             this.#pregunta=pregunta;
+            this.mostrarPregunta();
+        }else{
+            console.log('pregunta repetida, Solicitando otra...');
+        }
+    }
+
+    mostrarPregunta(){
+        this.#jugadores.forEach((jugador) => {
+            jugador.recibirPregunta(this.#pregunta);
+        });        
+    }
+
+    recibirRespuesta(jugador,respuesta){
+        if(respuesta===this.#pregunta.respuestaCorrecta){
+            // this.#jugadores.has(jugador.id).puntos((this.#jugadores.has(jugador.id).puntos)+1);
+
+            jugador.puntos++;
+
+            if(jugador.puntos>=2){
+                this.#ganador=jugador;
+                console.log("GANADOR:"+jugador.nombre);
+            }else{
+                // this.#gameMediator.enviarPregunta(this.#id, new Pregunta());
+            }
+
+            console.log('respuesta Correcta');
 
         }else{
-            //solicitar otra pregunta
+            console.log('respuesta Incorrecta');
         }
     }
 
-    controladorJugadores(jugador,evento){
-        if(evento==='responder'){
-            
-        }
-    }
-
-    controladorPreguntas(){
-
+    get jugadores() {
+        return this.#jugadores;
     }
 
     get id(){
@@ -52,3 +73,5 @@ class SalaDeJuego{
     }
 
 }
+
+module.exports = SalaDeJuego;

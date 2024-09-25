@@ -6,17 +6,13 @@ class Pregunta{
     #respuestaCorrecta;
     #salaDeJuego
 
-    constructor(categoria,enunciado,opciones,respuestaCorrecta,salaDeJuego){
+    constructor(categoria,enunciado,opciones,respuestaCorrecta){
         this.#categoria=categoria;
         this.#enunciado=enunciado;
         this.#opciones=opciones;
         this.#respuestaCorrecta=respuestaCorrecta;
-        this.#salaDeJuego=salaDeJuego;
     }
-    
-    enviarPregunta(){
-        this.#salaDeJuego.controladorDeJuego(this,'pregunta');
-    }
+
 
     // Getters
     get categoria() {
@@ -40,3 +36,5 @@ class Pregunta{
     }
 
 }
+
+module.exports = Pregunta;

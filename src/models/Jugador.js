@@ -7,20 +7,21 @@ class Jugador{
     #salaDeJuego
     #respuesta;
 
-    constructor(id,nombre,estado,salaDeJuego){
+    constructor(id,nombre,estado){
         this.#id=id;
         this.#nombre=nombre;
         this.#puntos=0;
         this.#estado=estado;
-        this.#salaDeJuego=salaDeJuego;
+        this.#salaDeJuego=null;
         this.#respuesta='';
     }
 
     recibirPregunta(pregunta){
-        console.log('usuario'+this.#nombre+' recibe: '+pregunta);
+        console.log('usuario:'+this.#nombre+' recibe: '+pregunta.enunciado);
     }
-    responderPregunta(){
-        this.#salaDeJuego.controladorDeJuego(this,'responder');
+
+    responderPregunta(mediator,respuesta){
+        mediator.procesarRespuesta(this,respuesta);
     }
 
     //getters
@@ -69,6 +70,6 @@ class Jugador{
         this.#respuesta = respuesta;
     }
 
-
-
 }
+
+module.exports = Jugador;
