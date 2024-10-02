@@ -4,7 +4,6 @@ class Pregunta{
     #enunciado;
     #opciones;
     #respuestaCorrecta;
-    #salaDeJuego
 
     constructor(categoria,enunciado,opciones,respuestaCorrecta){
         this.#categoria=categoria;
@@ -29,10 +28,6 @@ class Pregunta{
 
     get respuestaCorrecta() {
         return this.#respuestaCorrecta;
-    }
-
-    get salaDeJuego() {
-        return this.#salaDeJuego;
     }
 
 }
