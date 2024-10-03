@@ -2,7 +2,18 @@ const mongoose = require('mongoose')
 
 const MONGODB_URL = 'mongodb://127.0.0.1:27017/preguntados';
 
-mongoose.connect(MONGODB_URL)
-.then(db=>console.log('base de datos conectada con exito'))
-.catch(err=>console.log(err));
+// mongoose.connect(MONGODB_URL)
+// .then(db=>console.log('base de datos conectada con exito'))
+// .catch(err=>console.log(err));
+
+async function conexion() {
+    try{
+        await mongoose.connect(MONGODB_URL);
+        console.log('base de datos conectada con exito');
+    }catch(err){
+        console.error(err);
+    }
+}
+
+conexion();
 

@@ -32,6 +32,7 @@ class SalaDeJuego{
         if(!this.#historialDePreguntas.includes(pregunta.id)){
             this.#historialDePreguntas.push(pregunta.id);
             this.#pregunta=pregunta;
+            console.log("Pregunta recibida:", this.#pregunta); // Añade esto para depurar
             this.mostrarPregunta();
         }else{
             console.log('pregunta repetida, Solicitando otra...');
@@ -54,7 +55,7 @@ class SalaDeJuego{
                 this.#ganador=jugador;
                 console.log("GANADOR:"+jugador.nombre);
             }else{
-                // this.#gameMediator.enviarPregunta(this.#id, new Pregunta());
+                this.#gameMediator.enviarPregunta(this.#id);
             }
 
             console.log('respuesta Correcta');

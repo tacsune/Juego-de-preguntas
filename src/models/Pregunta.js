@@ -1,19 +1,23 @@
 class Pregunta{
-
+    #id;
     #categoria;
     #enunciado;
     #opciones;
     #respuestaCorrecta;
 
-    constructor(categoria,enunciado,opciones,respuestaCorrecta){
+    constructor(id,categoria,enunciado,opciones,respuestaCorrecta){
+        this.#id=id;
         this.#categoria=categoria;
         this.#enunciado=enunciado;
         this.#opciones=opciones;
         this.#respuestaCorrecta=respuestaCorrecta;
     }
 
-
     // Getters
+    get id() {
+        return this.#id;
+    }
+
     get categoria() {
         return this.#categoria;
     }
